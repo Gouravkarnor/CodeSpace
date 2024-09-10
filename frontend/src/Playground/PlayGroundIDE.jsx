@@ -31,7 +31,7 @@ int main() {
   const [code, setCode] = useState(languageSnippets["cpp"]);
   const [testCases, setTestCases] = useState(""); // Test cases input
   const [results, setResults] = useState(""); // Store results
-
+  const [clickedSubmit, setClickedsubmit] = useState(false);
   const handleLanguageChange = (event) => {
     if (event.target.value !== "cpp") {
       toast.warning(`${event.target.value} currently not supported`, {
@@ -54,6 +54,7 @@ int main() {
   };
 
   const handleRunCode = () => {
+    setClickedsubmit(false);
     setLoading(true);
     if (code.includes("cin") && !testCases) {
       toast.warning("Input Required", {
@@ -100,7 +101,7 @@ int main() {
               error.message ||
               "Error executing code";
             setResults(errorMessage); // Display the error in the results section
-            // console.log(error);
+            console.log(error);
           })
           .finally(() => {
             setLoading(false);

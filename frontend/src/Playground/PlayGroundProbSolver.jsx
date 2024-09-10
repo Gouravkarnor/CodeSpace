@@ -32,12 +32,9 @@ const PlayGroundIDE = () => {
   const [problemdata, setProblemData] = useState([]);
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user);
+  const [CompleteUserdata, setCompleteUserdata] = useState([]);
 
-  useEffect(() => {
-    if (userData?.status === "error") {
-      navigate("/");
-    }
-  }, [userData]);
+  // console.log(CompleteUserdata);
   useEffect(() => {
     axios
       .post("http://localhost:8000/CRUD/getProblemById", { problemId })
@@ -59,6 +56,10 @@ const PlayGroundIDE = () => {
   const [expectedop, setexpectedop] = useState(""); // Store results
   const [loading, setLoading] = useState(false);
   const [submitloading, setsubmitloading] = useState(false);
+  const [IsSubmitted, setIsSubmitted] = useState(false);
+  const [IsAttempted, setIsAttempted] = useState(false);
+  const [numberOfPassedTestcase, setnumberOfPassedTestcase] = useState(0);
+  const [clickedSubmit, setClickedsubmit] = useState(false);
   const [showTestResults, setShowTestResults] = useState(false); // State to toggle test cases and results visibility
   useEffect(() => {
     setTestCases(problemdata.inputDescription);
@@ -79,8 +80,23 @@ const PlayGroundIDE = () => {
   const handleCodeChange = (newCode) => {
     setCode(newCode);
   };
+  useEffect(() => {
+    if (userData?.status === "error") {
+      navigate("/");
+    }
 
+    axios
+      .post("http://localhost:8000/api/getUserById", { userId: userData?.id })
+      .then((res) => {
+        if (res.data.success === true) setCompleteUserdata(res.data.user);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [userData, submitloading]);
   const handleRunCode = () => {
+    setClickedsubmit(false);
+    setIsSubmitted(false);
     setResults("");
     setexpectedop("");
     setShowTestResults(true);
@@ -95,17 +111,18 @@ const PlayGroundIDE = () => {
       const url = testCases
         ? "http://localhost:8000/ExecuteCode/run"
         : "http://localhost:8000/ExecuteCode/runCodePlayground";
-      console.log(url);
+      // console.log(url);
       const payload = testCases
         ? { code, lang: language, inputs: testCases, problemId }
         : { code, lang: language };
       axios
         .post(url, payload)
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           if (res.data.output == "") setResults(" ");
           else setResults(res.data.output);
           setexpectedop(res.data.output2);
+          setIsSubmitted(false);
         })
         .catch((error) => {
           const errorMessage =
@@ -113,47 +130,59 @@ const PlayGroundIDE = () => {
             error.message ||
             "Error executing code";
           setResults(errorMessage);
-          console.log(error);
+          setnumberOfPassedTestcase(error.response?.data?.inputNumber);
+          // console.log(error);
         })
         .finally(() => setLoading(false));
     }
   };
 
   const handleSubmitCode = () => {
-    setLoading(true);
+    setClickedsubmit(true);
+    setIsSubmitted(false);
     setsubmitloading(true);
+    setResults("");
+    setexpectedop("");
+    setShowTestResults(true);
     axios
       .post("http://localhost:8000/ExecuteCode/submitCode", {
         code,
         lang: language,
         problemId,
-        userId: userData?._id,
+        userId: userData?.id,
       })
       .then((res) => {
-        setResults(res.data.message);
         toast.success("Code submitted successfully!", {
           theme: "dark",
-          position: "top-center",
+          position: "top-right",
         });
-        console.log(res);
+        // console.log(res);
+        if (res.data.verdict === "Passed") {
+          setnumberOfPassedTestcase(res.data.inputNumber);
+        }
+        setsubmitloading(false);
+        setIsSubmitted(true);
       })
       .catch((error) => {
         console.log(error);
         const errorMessage =
-          error.response?.data?.message ||
+          error.response?.data?.userOP ||
           error.response?.data?.message ||
           "Error submitting code";
         setResults(errorMessage);
+        setexpectedop(error.response?.data?.testCase?.output);
+        setnumberOfPassedTestcase(error.response?.data?.inputNumber);
         // toast.error(errorMessage, {
         //   theme: "dark",
         //   position: "top-center",
         // });
+
+        setsubmitloading(false);
       })
       .finally(() => {
         setLoading(false);
       });
   };
-
   return (
     <>
       <ToastContainer />
@@ -161,8 +190,14 @@ const PlayGroundIDE = () => {
         <div className="flex justify-between mb-1">
           {/* <p className="text-2xl">CodeGo Playground</p> */}
           <h2 className="text-3xl mb-0 font-serif">
-            Problem Name : {problemdata.problemName}
+            {problemdata.problemName}
           </h2>
+          {CompleteUserdata.problemsSolved?.includes(problemId) && (
+            <h2 className="text-1xl mb-0 font-serif"> Solved ✅</h2>
+          )}
+          {CompleteUserdata.problemsAttempted?.includes(problemId) && (
+            <h2 className="text-1xl mb-0 font-serif"> Attempted 🪙</h2>
+          )}
 
           {/* Language selection dropdown */}
           <div>
@@ -211,6 +246,7 @@ const PlayGroundIDE = () => {
                   setShowTestResults(!showTestResults);
                   setResults("");
                   setexpectedop("");
+                  showTestResults;
                 }}
                 className="px-5 py-2 text-white rounded bg-gray-800 hover:bg-gray-700 flex items-center space-x-2"
               >
@@ -299,45 +335,50 @@ const PlayGroundIDE = () => {
                 className="absolute inset-0 bg-gray-900 bg-opacity-80 p-6 flex flex-row md:flex-col md:space-x-6 z-9"
               >
                 {/* Test Cases */}
-                <div className="flex flex-row md:space-x-6 z-9">
-                  <div className="w-full md:w-1/2 mb-6 md:mb-0">
-                    <h3 className="text-lg mb-2">Test Cases:</h3>
-                    <textarea
-                      value={testCases}
-                      onChange={(e) => setTestCases(e.target.value)}
-                      placeholder="Enter your test cases here..."
-                      className="w-full p-4 bg-gray-800 text-white rounded-md border border-gray-600 focus:outline-none"
-                      rows="3"
-                    ></textarea>
-                  </div>
+                {!IsSubmitted && (
+                  <div className="flex flex-row md:space-x-6 z-9">
+                    <div className="w-full md:w-1/2 mb-6 md:mb-0">
+                      <h3 className="text-lg mb-2">Test Cases:</h3>
+                      <textarea
+                        value={testCases}
+                        onChange={(e) => setTestCases(e.target.value)}
+                        placeholder="Enter your test cases here..."
+                        className="w-full p-4 bg-gray-800 text-white rounded-md border border-gray-600 focus:outline-none"
+                        rows="3"
+                      ></textarea>
+                    </div>
 
-                  {/* Results */}
-                  <div className="w-full md:w-1/2">
-                    <h3 className="text-lg mb-2">Output:</h3>
-                    <textarea
-                      value={results}
-                      readOnly
-                      placeholder="Results will be displayed here..."
-                      className="w-full p-4 bg-gray-800 text-white rounded-md border border-gray-600 focus:outline-none"
-                      rows="3"
-                    ></textarea>
+                    {/* Results */}
+                    <div className="w-full md:w-1/2">
+                      <h3 className="text-lg mb-2">Output:</h3>
+                      <textarea
+                        value={results}
+                        readOnly
+                        placeholder="Results will be displayed here..."
+                        className="w-full p-4 bg-gray-800 text-white rounded-md border border-gray-600 focus:outline-none"
+                        rows="3"
+                      ></textarea>
+                    </div>
                   </div>
-                </div>
+                )}
                 <div
                   className="flex flex-row md:space-x-6 z-9 mt-6 items-center justify-stretch align-middle"
                   style={{ marginLeft: 0 }}
                 >
-                  <div className="w-full md:w-1/2 ">
-                    <h3 className="text-lg mb-2">Expected Output:</h3>
-                    <textarea
-                      value={expectedop}
-                      readOnly
-                      placeholder="Results will be displayed here..."
-                      className="w-full p-4 bg-gray-800 text-white rounded-md border border-gray-600 focus:outline-none"
-                      rows="3"
-                    ></textarea>
-                  </div>
-                  {results === expectedop && results !== "" && (
+                  {!IsSubmitted && (
+                    <div className="w-full md:w-1/2 ">
+                      <h3 className="text-lg mb-2">Expected Output:</h3>
+                      <textarea
+                        value={expectedop}
+                        readOnly
+                        placeholder="Results will be displayed here..."
+                        className="w-full p-4 bg-gray-800 text-white rounded-md border border-gray-600 focus:outline-none"
+                        rows="3"
+                      ></textarea>
+                    </div>
+                  )}
+                  {((results === expectedop && results !== "") ||
+                    IsSubmitted) && (
                     <div
                       className="ml-6 flex flex-row items-center justify-between"
                       style={{ marginLeft: "20px" }}
@@ -348,13 +389,24 @@ const PlayGroundIDE = () => {
                         alt=""
                         srcset=""
                       />
-                      <span
-                        className="font-serif ml11"
-                        style={{ marginLeft: "20px" }}
-                      >
-                        {" "}
-                        Passed
-                      </span>
+                      {IsSubmitted && (
+                        <span
+                          className="font-serif ml11"
+                          style={{ marginLeft: "20px" }}
+                        >
+                          {" "}
+                          Submitted Successfully
+                        </span>
+                      )}
+                      {!IsSubmitted && (
+                        <span
+                          className="font-serif ml11"
+                          style={{ marginLeft: "20px" }}
+                        >
+                          {" "}
+                          Passed
+                        </span>
+                      )}
                     </div>
                   )}
                   {results !== expectedop && results !== "" && (
@@ -368,13 +420,27 @@ const PlayGroundIDE = () => {
                         alt=""
                         srcset=""
                       />
-                      <span
-                        className="font-serif"
-                        style={{ marginLeft: "20px" }}
-                      >
-                        {" "}
-                        Failed
-                      </span>
+                      {clickedSubmit && (
+                        <span
+                          className="font-serif"
+                          style={{ marginLeft: "20px" }}
+                        >
+                          {" "}
+                          Failed on TestCase :{" "}
+                          <span className="text-2xl  text-red-500">
+                            {numberOfPassedTestcase}
+                          </span>
+                        </span>
+                      )}
+                      {!clickedSubmit && (
+                        <span
+                          className="font-serif"
+                          style={{ marginLeft: "20px" }}
+                        >
+                          {" "}
+                          Wrong Answer !
+                        </span>
+                      )}
                     </div>
                   )}
                 </div>

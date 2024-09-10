@@ -7,16 +7,9 @@ import {
   verifyuser,
   loggedin,
 } from "../middlewares/auth.js";
-// import { generateCodeFile } from "../controllers/generateCodeFile.js";
-import {
-  runCode,
-  submitCode,
-  runCodePlayground,
-  runCodePlaygroundInput,
-} from "../controllers/runCode.js";
 import home from "../controllers/home.js";
 const router = express.Router();
-
+import getUserById from "../controllers/getUserById.js";
 router.get("/", home);
 router.post("/register", register);
 router.post("/login", login);
@@ -44,7 +37,6 @@ router.get("/visitor", auth, isVisitor, (req, res) => {
 });
 
 router.post("/logout", logout);
-
-// router.post("/playground", runCode);
+router.post("/getUserById", getUserById);
 
 export default router;

@@ -22,6 +22,7 @@ import { Provider } from "react-redux";
 import PlayGroundProbSolver from "./Playground/PlayGroundProbSolver.jsx";
 import ProblemList from "./ProblemPage/ProblemList.jsx";
 import store from "./Redux/App/store.js";
+import SubmitHistoryPage from "./SubmitHistory/SubmitHistoryPage.jsx";
 import { ConfirmProvider } from "material-ui-confirm";
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,6 +38,7 @@ const router = createBrowserRouter(
         path="PlayGroundProbSolver/:problemId"
         element={<PlayGroundProbSolver />}
       />
+      <Route path="SubmitHistoryPage/:id" element={<SubmitHistoryPage />} />
       <Route path="ProblemList" element={<ProblemList />} />
       <Route path="adminPage" element={<Adminpage />} />
     </Route>

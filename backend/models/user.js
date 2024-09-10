@@ -25,19 +25,19 @@ const userSchema = new mongoose.Schema({
   problemsCreated: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Problems",
+      ref: "problemList",
     },
   ],
   problemsSolved: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "ProblemList",
+      ref: "problemList",
     },
   ],
   problemsAttempted: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Problems",
+      ref: "problemList",
     },
   ],
 });

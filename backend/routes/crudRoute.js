@@ -6,6 +6,7 @@ import {
   addProblems,
   editProblem,
   deleteProblemAndCleanup,
+  fetchSubmittedProblemListbyUserId,
 } from "../controllers/HandleProblem.js";
 import {
   addTestcases,
@@ -21,5 +22,9 @@ router.post("/getProblemById", getProblemById);
 router.post(
   "/deleteProblemAndCleanup/:problemId/:userId",
   deleteProblemAndCleanup
+);
+router.post(
+  "/fetchSubmitedproblemListbyUserid",
+  fetchSubmittedProblemListbyUserId
 );
 export default router;

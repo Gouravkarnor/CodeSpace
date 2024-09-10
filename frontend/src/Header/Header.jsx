@@ -125,6 +125,20 @@ export default function Header() {
                     Github
                   </NavLink>
                 </li>
+                {user.status === "success" && (
+                  <li>
+                    <NavLink
+                      to={`/SubmitHistoryPage/${user.id}`}
+                      className={({ isActive }) =>
+                        `block py-2 pr-4 pl-3 duration-200 ${
+                          isActive ? "text-orange-500" : "text-gray-300"
+                        } border-b border-gray-800 hover:bg-gray-800 lg:hover:bg-transparent lg:border-0 hover:text-orange-500 lg:p-0`
+                      }
+                    >
+                      View Submit History
+                    </NavLink>
+                  </li>
+                )}
                 {user.role === "admin" && (
                   <li>
                     <NavLink

@@ -4,19 +4,23 @@ import jwt from "jsonwebtoken";
 
 //register route handler
 const register = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   try {
     //get all the data from request body
     const { firstname, lastname, email, password, role } = req.body;
     // console.log({ firstname, lastname, email, password });
     // check that all the data should exist
     if (!(firstname && lastname && email && password && role))
-      return res.status(400).send("Please enter mandatory feilds");
+      return res
+        .status(400)
+        .json({ success: false, message: "Please enter mandatory feilds" });
 
     // Check if user already exists
     const existingUser = await users.findOne({ email });
     if (existingUser) {
-      return res.status(400).json("User already exists! ");
+      return res
+        .status(400)
+        .json({ success: false, message: "User already Registered" });
     }
 
     // encrypt the password
@@ -34,6 +38,7 @@ const register = async (req, res) => {
 
     // send the response
     res.status(201).json({
+      success: true,
       message: "You have successfully registered!",
       user,
     });
@@ -43,7 +48,7 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   try {
     const { email, password } = req.body;
     let user = await users.findOne({ email });
@@ -61,11 +66,11 @@ const login = async (req, res) => {
       }
     );
     // req.user.id = user._id;
-    console.log(user);
+    // console.log(user);
     user = user.toObject();
     user.token = token;
     user.password = undefined;
-    console.log(user);
+    // console.log(user);
     res.cookie("token", token, {
       secure: true,
       sameSite: "None",

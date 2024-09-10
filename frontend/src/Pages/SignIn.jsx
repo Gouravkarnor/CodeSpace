@@ -135,12 +135,12 @@ export default function SignIn() {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{" "}
-            <a
-              href="#"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+            <span
+              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer"
+              onClick={() => navigate("/signup")}
             >
-              Start a 14 day free trial
-            </a>
+              Register Now
+            </span>
           </p>
         </div>
       </div>

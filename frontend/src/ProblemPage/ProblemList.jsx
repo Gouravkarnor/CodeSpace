@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from "chart.js";
 import { useSelector } from "react-redux";
@@ -6,19 +6,9 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 // Register Chart.js components
 ChartJS.register(Title, Tooltip, Legend, ArcElement);
-
+import axios from "axios";
 // Sample data for the pie chart
-const data = {
-  labels: ["Solved", "Unsolved"],
-  datasets: [
-    {
-      data: [20, 15],
-      backgroundColor: ["green", "gray"],
-      borderColor: "#fff",
-      borderWidth: 1,
-    },
-  ],
-};
+
 function truncateDescription(description, maxLength = 80) {
   if (description.length > maxLength) {
     return description.substring(0, maxLength) + "...";
@@ -211,6 +201,7 @@ const ProblemList = () => {
   const navigate = useNavigate();
   const problems = useSelector((state) => state.problem);
   const userData = useSelector((state) => state.user);
+  const [CompleteUserdata, setCompleteUserdata] = useState([]);
   const handleNavigateToProblem = (id) => {
     if (userData?.status === "error") {
       toast.error("Please Login to Continue", {
@@ -221,6 +212,33 @@ const ProblemList = () => {
       navigate(`/PlayGroundProbSolver/${id}`);
     }
   };
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:8000/api/getUserById", { userId: userData?.id })
+      .then((res) => {
+        if (res.data.success === true) setCompleteUserdata(res.data.user);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [userData]);
+  console.log(userData);
+  const data = {
+    labels: ["Solved", "Unsolved"],
+    datasets: [
+      {
+        data: [
+          CompleteUserdata?.problemsSolved?.length,
+          problems?.length - CompleteUserdata?.problemsSolved?.length,
+        ],
+        backgroundColor: ["green", "gray"],
+        borderColor: "#fff",
+        borderWidth: 1,
+      },
+    ],
+  };
+
   return (
     <>
       <ToastContainer />

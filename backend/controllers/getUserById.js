@@ -1,11 +1,12 @@
-import users from "../models/user";
+import users from "../models/user.js";
 
 const getUserById = async (req, res) => {
   const { userId } = req.body;
+  // console.log(userId);
   try {
     const user = await users
       .findById({ _id: userId })
-      .populate("problemsSolved")
+      // .populate("problemsSolved")
       .exec();
     if (!user) {
       return res
@@ -17,3 +18,5 @@ const getUserById = async (req, res) => {
     return res.status(500).json({ success: false, message: error.message });
   }
 };
+
+export default getUserById;

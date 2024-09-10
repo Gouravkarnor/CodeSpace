@@ -1,9 +1,12 @@
 import mongoose from "mongoose";
-
+import users from "../models/user.js";
+const currenttime = () => {
+  return new Date().getTime();
+};
 const solutionSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: User,
+    ref: users,
   },
 
   problemId: {
@@ -18,7 +21,12 @@ const solutionSchema = new mongoose.Schema({
 
   submit_at: {
     type: Date,
-    default: date.now,
+    default: Date.now(),
+  },
+  submit_atTime: {
+    type: Date,
+    default: currenttime,
   },
 });
-module.exports = mongoose.model("SolutionSubmitted", solutionSchema);
+const SolutionSubmitted = mongoose.model("SolutionSubmitted", solutionSchema);
+export default SolutionSubmitted;

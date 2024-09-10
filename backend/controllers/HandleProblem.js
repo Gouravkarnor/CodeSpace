@@ -1,7 +1,7 @@
 // import users from "../models/user";
 import users from "../models/user.js";
 import testcases from "../models/testcase.js";
-
+import SolutionSubmitted from "../models/solution.js";
 import problemList from "../models/problem.js";
 
 const fetchproblemList = async (req, res) => {
@@ -170,6 +170,7 @@ const deleteProblemAndCleanup = async (req, res) => {
       { $pull: { problemsCreated: problemId } },
       { new: true }
     );
+    const deleteSol = await SolutionSubmitted.deleteMany({ problemId });
 
     return res.json({
       success: true,
@@ -181,10 +182,44 @@ const deleteProblemAndCleanup = async (req, res) => {
   }
 };
 
+const fetchSubmittedProblemListbyUserId = async (req, res) => {
+  try {
+    const { id } = req.body; // Assuming `id` is the userId
+
+    // Fetch submitted problems for the specific user, sorted by submit_at in descending order
+    const submittedProblems = await SolutionSubmitted.find({ userId: id })
+      .populate("problemId") // Populate `problemId` to get problem details
+      .sort({ submit_atTime: -1 }) // Sort by `submit_at` in descending order
+      .exec();
+
+    if (!submittedProblems || submittedProblems.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No problems found for the specified user.",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Fetched submitted problems successfully",
+      submittedProblems,
+    });
+  } catch (error) {
+    console.error("Error fetching submitted problems:", error);
+    return res.status(500).json({
+      success: false,
+      message: `Error in fetching submitted problems: ${error.message}`,
+    });
+  }
+};
+
+export default fetchSubmittedProblemListbyUserId;
+
 export {
   fetchproblemList,
   getProblemById,
   addProblems,
   editProblem,
   deleteProblemAndCleanup,
+  fetchSubmittedProblemListbyUserId,
 };

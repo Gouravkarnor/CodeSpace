@@ -8,6 +8,7 @@ export default function Footer() {
           <div className="mb-6 md:mb-0">
             <Link to="/" className="flex items-center">
               <img
+                style={{ height: "100px" }}
                 src="https://creativators.nl/wp-content/uploads/2023/12/CODEGO.png"
                 className="mr-3 h-40 w-50"
                 alt="Logo"
@@ -42,7 +43,7 @@ export default function Footer() {
               <ul className="text-gray-400 font-medium">
                 <li className="mb-4">
                   <a
-                    href="https://github.com/hiteshchoudhary"
+                    href="https://github.com/Gopal381"
                     className="hover:underline hover:text-white"
                     target="_blank"
                     rel="noreferrer"
@@ -51,7 +52,7 @@ export default function Footer() {
                   </a>
                 </li>
                 <li>
-                  <Link to="/" className="hover:underline hover:text-white">
+                  <Link to="#" className="hover:underline hover:text-white">
                     Discord
                   </Link>
                 </li>
@@ -79,12 +80,9 @@ export default function Footer() {
         <hr className="my-6 border-gray-700 sm:mx-auto lg:my-8" />
         <div className="sm:flex sm:items-center sm:justify-between">
           <span className="text-sm text-gray-400 sm:text-center">
-            © 2023
-            <a
-              href="https://hiteshchoudhary.com/"
-              className="hover:underline hover:text-white"
-            >
-              hiteshchoudhary
+            © 2024
+            <a href="#" className="hover:underline hover:text-white">
+              CodeVizz
             </a>
             . All Rights Reserved.
           </span>
