@@ -14,7 +14,7 @@ export default function About() {
               Hey Code Wizards! Let's Make Some Magic Happen!
             </h2>
             <p className="mt-6 text-gray-200">
-              Welcome to CodeGo, an interactive online coding platform where
+              Welcome to CodeSpace, an interactive online coding platform where
               developers of all skill levels can enhance their coding abilities.
               Whether you're a beginner learning the fundamentals or a seasoned
               programmer looking to tackle advanced challenges, our platform

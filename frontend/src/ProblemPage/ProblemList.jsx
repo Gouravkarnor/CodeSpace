@@ -9,176 +9,8 @@ ChartJS.register(Title, Tooltip, Legend, ArcElement);
 import axios from "axios";
 // Sample data for the pie chart
 
-function truncateDescription(description, maxLength = 80) {
-  if (description.length > maxLength) {
-    return description.substring(0, maxLength) + "...";
-  }
-  return description;
-}
 
-const problems = [
-  {
-    name: "Two Sum",
-    description:
-      "Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`...",
-  },
-  {
-    name: "Add Two Numbers",
-    description:
-      "You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order...",
-  },
-  {
-    name: "Longest Substring Without Repeating Characters",
-    description:
-      "Given a string `s`, find the length of the longest substring without repeating characters...",
-  },
-  {
-    name: "Median of Two Sorted Arrays",
-    description:
-      "Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays...",
-  },
-  {
-    name: "Longest Palindromic Substring",
-    description:
-      "Given a string `s`, return the longest palindromic substring in `s`...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "Reverse Integer",
-    description:
-      "Given a signed 32-bit integer `x`, return `x` with its digits reversed. If reversing `x` causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1]...",
-  },
-  {
-    name: "String to Integer (atoi)",
-    description:
-      "Implement the `myAtoi(string s)` function, which converts a string to a 32-bit signed integer according to the rules of the `atoi` function...",
-  },
-  {
-    name: "Palindrome Number",
-    description:
-      "Given an integer `x`, return true if `x` is a palindrome, and false otherwise...",
-  },
-  {
-    name: "Regular Expression Matching",
-    description:
-      "Given an input string `s` and a pattern `p`, implement regular expression matching with support for `.` and `*` where `.` matches any single character and `*` matches zero or more of the preceding element...",
-  },
-  {
-    name: "Container With Most Water",
-    description:
-      "You are given an integer array `height` of length `n`. There are `n` vertical lines drawn such that...",
-  },
-  // Add more problems as needed
-];
+
 
 const options = {
   plugins: {
@@ -223,7 +55,6 @@ const ProblemList = () => {
         console.log(err);
       });
   }, [userData]);
-  console.log(userData);
   const data = {
     labels: ["Solved", "Unsolved"],
     datasets: [
@@ -232,6 +63,17 @@ const ProblemList = () => {
           CompleteUserdata?.problemsSolved?.length,
           problems?.length - CompleteUserdata?.problemsSolved?.length,
         ],
+        backgroundColor: ["green", "gray"],
+        borderColor: "#fff",
+        borderWidth: 1,
+      },
+    ],
+  };
+  const data2 = {
+    labels: ["Solved", "Unsolved"],
+    datasets: [
+      {
+        data: [0,problems.length],
         backgroundColor: ["green", "gray"],
         borderColor: "#fff",
         borderWidth: 1,
@@ -281,14 +123,23 @@ const ProblemList = () => {
             ))}
           </div>
         </div>
-
         {/* Pie Chart */}
+        {userData.status==="success" && 
         <div
-          className="w-full md:w-1/3 bg-gray-800 p-2 rounded-md border border-gray-600 flex items-center justify-center"
-          style={{ height: "250px" }}
+        className="w-full md:w-1/3 bg-gray-800 p-2 rounded-md border border-gray-600 flex items-center justify-center"
+        style={{ height: "250px" }}
         >
           <Pie data={data} options={options} width={150} height={150} />
         </div>
+        }
+        {userData.status==="error" && 
+        <div
+        className="w-full md:w-1/3 bg-gray-800 p-2 rounded-md border border-gray-600 flex items-center justify-center"
+        style={{ height: "250px" }}
+        >
+          <Pie data={data2} options={options} width={150} height={150} />
+        </div>
+        }
       </div>
     </>
   );
