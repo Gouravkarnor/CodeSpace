@@ -74,8 +74,7 @@ const login = async (req, res) => {
     res.cookie("token", token, {
       secure: true,
       sameSite: "None",
-      httpOnly: false,
-      expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
+      maxAge: 3600000,
     });
     res.json({
       success: true,
@@ -92,7 +91,12 @@ const login = async (req, res) => {
 };
 
 const logout = (req, res) => {
-  res.clearCookie("token");
+  res.clearCookie("token", {
+    path: "/", // Ensure the correct path is specified
+    httpOnly: false,
+    secure: true, // Set to true if your server is hosted over HTTPS
+    sameSite: "None",
+  });
   res.json({ success: true, message: "Logout Successfull" });
 };
 export { register, login, logout };
