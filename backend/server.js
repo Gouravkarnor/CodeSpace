@@ -24,10 +24,6 @@ app.use(
   })
 );
 
-// app.get("/", (req, res) => {
-//   res.send("API is running");
-// });
-
 app.use("/api", userRouter);
 app.use("/CRUD", crudRouter);
 app.use("/ExecuteCode", ExecuteCode);
