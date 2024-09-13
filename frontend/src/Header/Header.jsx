@@ -141,7 +141,8 @@ export default function Header() {
                   </li>
                 )}
                 {isloggedin ? (
-                  <li
+                  <li>
+                    <NavLink
                       onClick={HandleLogout}
                       className={({ isActive }) =>
                         `block py-2 pr-4 pl-3 duration-200 ${
@@ -150,6 +151,7 @@ export default function Header() {
                       }
                     >
                       Logout
+                    </NavLink>
                   </li>
                 ) : (
                   <>
