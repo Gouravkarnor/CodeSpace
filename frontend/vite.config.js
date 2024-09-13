@@ -13,5 +13,6 @@ export default defineConfig({
     rollupOptions: {
       external: ["mongoose"], // Ignore 'mongoose' during the build
     },
+    outDir: "dist",
   },
 });
