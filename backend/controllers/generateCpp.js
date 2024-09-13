@@ -18,9 +18,9 @@ const executeCpp = async (filepath) => {
 
   return new Promise((resolve, reject) => {
     exec(
-      `g++ ${filepath} -o ${outputFilePath} && cd ${dirOutput} && .\\${outputFilename}`,
+      `g++ ${filepath} -o ${outputFilePath} && cd ${dirOutput} && ./${outputFilename}`,
       (error, stdout, stderr) => {
-        const fileNameRegex3 = `${outputFilePath} && cd ${dirOutput} && .\\${outputFilename}`;
+        const fileNameRegex3 = `${outputFilePath} && cd ${dirOutput} && ./${outputFilename}`;
         const filePathname = `${filepath}`;
         const fileNameRegex =
           /([a-zA-Z]:[\\\/].*?\.(cpp|h))|([\\\/].*?\.(cpp|h))/g;
@@ -75,12 +75,12 @@ const executeCppWithInput = async (filepath, inputFile) => {
 
   return new Promise((resolve, reject) => {
     exec(
-      `g++ ${filepath} -o ${outputFilePath} && cd ${dirOutput} && .\\${outputFilename} < ${inputFile}`,
+      `g++ ${filepath} -o ${outputFilePath} && cd ${dirOutput} && ./${outputFilename} < ${inputFile}`,
       (error, stdout, stderr) => {
         // console.log(
         //   `g++ ${filepath} -o ${outputFilePath} && cd ${dirOutput} && .\\${outputFilename} < ${inputFile}`
         // );
-        const fileNameRegex3 = `${outputFilePath} && cd ${dirOutput} && .\\${outputFilename} < ${inputFile}`;
+        const fileNameRegex3 = `${outputFilePath} && cd ${dirOutput} && ./${outputFilename} < ${inputFile}`;
         const filePathname = `${filepath}`;
         const fileNameRegex =
           /([a-zA-Z]:[\\\/].*?\.(cpp|h))|([\\\/].*?\.(cpp|h))/g;
