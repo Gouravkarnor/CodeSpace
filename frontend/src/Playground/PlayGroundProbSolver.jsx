@@ -37,7 +37,7 @@ const PlayGroundIDE = () => {
   // console.log(CompleteUserdata);
   useEffect(() => {
     axios
-      .post("http://localhost:8000/CRUD/getProblemById", { problemId })
+      .post(`${import.meta.env.VITE_BACKEND_URL}/CRUD/getProblemById`, { problemId })
       .then((res) => {
         setProblemData(res.data.getProblem);
       })
@@ -86,7 +86,7 @@ const PlayGroundIDE = () => {
     }
 
     axios
-      .post("http://localhost:8000/api/getUserById", { userId: userData?.id })
+      .post(`${import.meta.env.VITE_BACKEND_URL}/api/getUserById`, { userId: userData?.id })
       .then((res) => {
         if (res.data.success === true) setCompleteUserdata(res.data.user);
       })
@@ -109,8 +109,8 @@ const PlayGroundIDE = () => {
       setLoading(false);
     } else {
       const url = testCases
-        ? "http://localhost:8000/ExecuteCode/run"
-        : "http://localhost:8000/ExecuteCode/runCodePlayground";
+        ? `${import.meta.env.VITE_BACKEND_URL}/ExecuteCode/run`
+        : `${import.meta.env.VITE_BACKEND_URL}/ExecuteCode/runCodePlayground`;
       // console.log(url);
       const payload = testCases
         ? { code, lang: language, inputs: testCases, problemId }
@@ -145,7 +145,7 @@ const PlayGroundIDE = () => {
     setexpectedop("");
     setShowTestResults(true);
     axios
-      .post("http://localhost:8000/ExecuteCode/submitCode", {
+      .post(`${import.meta.env.VITE_BACKEND_URL}/ExecuteCode/submitCode`, {
         code,
         lang: language,
         problemId,

@@ -47,7 +47,7 @@ const ProblemList = () => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:8000/api/getUserById", { userId: userData?.id })
+      .post(`${import.meta.env.VITE_BACKEND_URL}/api/getUserById`, { userId: userData?.id })
       .then((res) => {
         if (res.data.success === true) setCompleteUserdata(res.data.user);
       })

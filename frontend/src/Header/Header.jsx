@@ -13,14 +13,14 @@ export default function Header() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   useEffect(() => {
-    axios.get("http://localhost:8000/api/test").then((res) => {
+    axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/test`).then((res) => {
       console.log(res.data);
       setIsloggedin(res.data.success);
     });
   }, [location]);
 
   const HandleLogout = () => {
-    axios.get("http://localhost:8000/api/logout").then((res) => {
+    axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/logout`).then((res) => {
       const data = {
         status: "error",
         message: "You are not logged in",

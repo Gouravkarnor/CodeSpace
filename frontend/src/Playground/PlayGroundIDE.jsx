@@ -65,7 +65,7 @@ int main() {
     } else {
       if (!code.includes("cin")) {
         axios
-          .post("http://localhost:8000/ExecuteCode/runCodePlayground", {
+          .post(`${import.meta.env.VITE_BACKEND_URL}/ExecuteCode/runCodePlayground`, {
             code,
             lan: language,
           })
@@ -87,7 +87,7 @@ int main() {
           });
       } else {
         axios
-          .post("http://localhost:8000/ExecuteCode/runCodePlaygroundInput", {
+          .post(`${import.meta.env.VITE_BACKEND_URL}/ExecuteCode/runCodePlaygroundInput`, {
             code,
             lan: language,
             input: testCases,

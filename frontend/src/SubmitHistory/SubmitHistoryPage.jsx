@@ -60,7 +60,7 @@ const SubmitHistoryPage = () => {
   const [problems, setProblems] = useState([]);
   useEffect(() => {
     axios
-      .post("http://localhost:8000/CRUD/fetchSubmitedproblemListbyUserid", {
+      .post(`${import.meta.env.VITE_BACKEND_URL}/CRUD/fetchSubmitedproblemListbyUserid`, {
         id,
       })
       .then((res) => {

@@ -50,7 +50,7 @@ const ProblemCard = ({ problem }) => {
   const handleConfirmDelete = () => {
     axios
       .post(
-        `http://localhost:8000/CRUD/deleteProblemAndCleanup/${problem._id}/${user.id}`
+        `${import.meta.env.VITE_BACKEND_URL}/CRUD/deleteProblemAndCleanup/${problem._id}/${user.id}`
       )
       .then((res) => {
         if (res.data.success === true) {

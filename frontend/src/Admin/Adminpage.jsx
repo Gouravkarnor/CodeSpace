@@ -28,7 +28,7 @@ export default function ProblemManager() {
     // setProblems([...problems, problem]);
   };
   useEffect(() => {
-    axios.get("http://localhost:8000/CRUD/fetchproblemList").then((res) => {
+    axios.get(`${import.meta.env.VITE_BACKEND_URL}/CRUD/fetchproblemList`).then((res) => {
       if (res.data.success === true) {
         console.log(res.data.allProblems);
         dispatch(addProblem(res.data.allProblems));

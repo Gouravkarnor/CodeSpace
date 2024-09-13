@@ -77,11 +77,11 @@ export default function AddProblemModal({ isOpen, onClose, onSubmit, flag }) {
     e.preventDefault();
     dispatch(setloading(true));
     axios
-      .post("http://localhost:8000/CRUD/updateProblem", problemData)
+      .post(`${import.meta.env.VITE_BACKEND_URL}/CRUD/updateProblem`, problemData)
       .then((res) => {
         axios
           .post(
-            `http://localhost:8000/CRUD/updateTestcases/${res.data.problemDetails._id}`,
+            `${import.meta.env.VITE_BACKEND_URL}/CRUD/updateTestcases/${res.data.problemDetails._id}`,
             testCases
           )
           .then((res) => {
@@ -127,7 +127,7 @@ export default function AddProblemModal({ isOpen, onClose, onSubmit, flag }) {
     }
     axios
       .post(
-        `http://localhost:8000/CRUD/addProblems/${userData.id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/CRUD/addProblems/${userData.id}`,
         problemData
       )
       .then((res) => {
@@ -140,7 +140,7 @@ export default function AddProblemModal({ isOpen, onClose, onSubmit, flag }) {
         }
         axios
           .post(
-            `http://localhost:8000/CRUD/addTestcase/${res.data.problem._id}`,
+            `${import.meta.env.VITE_BACKEND_URL}/CRUD/addTestcase/${res.data.problem._id}`,
             testCases
           )
           .then((res) => {
