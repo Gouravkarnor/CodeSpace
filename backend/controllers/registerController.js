@@ -72,9 +72,9 @@ const login = async (req, res) => {
     user.password = undefined;
     // console.log(user);
     res.cookie("token", token, {
-      secure: req.secure || req.headers["x-forwarded-proto"] === "https",
+      secure: true,
       sameSite: "None",
-      httpOnly: true,
+      httpOnly: false,
       expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
     });
     res.json({
