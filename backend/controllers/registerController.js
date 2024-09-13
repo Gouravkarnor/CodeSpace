@@ -75,7 +75,7 @@ const login = async (req, res) => {
       secure: req.secure || req.headers["x-forwarded-proto"] === "https",
       sameSite: "None",
       httpOnly: true,
-      maxAge: 3600000,
+      expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
     });
     res.json({
       success: true,

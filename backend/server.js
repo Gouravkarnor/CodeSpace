@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 app.use(
   cors({
     origin: ["https://code-space-henna.vercel.app"],
+    methods: ["POST", "GET", "PUT" < "PATCH", "DELETE"],
     credentials: true,
   })
 );
