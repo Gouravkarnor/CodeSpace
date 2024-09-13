@@ -9,9 +9,4 @@ export default defineConfig({
       "@emotion/styled": "@emotion/styled",
     },
   },
-  build: {
-    rollupOptions: {
-      external: ["mongoose"], // Ignore 'mongoose' during the build
-    },
-  },
 });
