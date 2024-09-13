@@ -13,7 +13,7 @@ const executeCpp = async (filepath) => {
     fs.mkdirSync(dirOutput, { recursive: true });
   }
   const fileId = path.basename(filepath).split(".")[0];
-  const outputFilename = `${fileId}.exe`;
+  const outputFilename = `${fileId}.out`;
   const outputFilePath = path.join(dirOutput, outputFilename);
 
   return new Promise((resolve, reject) => {
@@ -70,7 +70,7 @@ const executeCppWithInput = async (filepath, inputFile) => {
     fs.mkdirSync(dirOutput, { recursive: true });
   }
   const fileId = path.basename(filepath).split(".")[0];
-  const outputFilename = `${fileId}.exe`;
+  const outputFilename = `${fileId}.out`;
   const outputFilePath = path.join(dirOutput, outputFilename);
 
   return new Promise((resolve, reject) => {
