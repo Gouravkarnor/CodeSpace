@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { removeOneProblem } from "../Redux/Features/Problems/singleProblemSlice";
 import HashLoader from "react-spinners/HashLoader";
 import { setloading } from "../Redux/Features/Loading/loadingSlice";
-import testcases from "../../../backend/models/testcase";
 import {
   updateProblem,
   pushProblem,
