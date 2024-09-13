@@ -55,6 +55,7 @@ int main() {
 
   const handleRunCode = () => {
     setClickedsubmit(false);
+    setResults("")
     setLoading(true);
     if (code.includes("cin") && !testCases) {
       toast.warning("Input Required", {
