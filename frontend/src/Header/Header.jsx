@@ -80,9 +80,9 @@ export default function Header() {
                   <NavLink
                     to="/"
                     className={({ isActive }) =>
-                      isActive
-                        ? "text-white block py-2 pr-4 pl-3 rounded bg-primary-700 lg:bg-transparent lg:p-0"
-                        : "block py-2 pr-4 pl-3 text-gray-400 rounded hover:bg-gray-700 lg:hover:bg-transparent lg:hover:text-white lg:p-0"
+                      `block py-2 pr-4 pl-3 duration-200 ${
+                        isActive ? "text-orange-500" : "text-gray-300"
+                      } border-b border-gray-800 hover:bg-gray-800 lg:hover:bg-transparent lg:border-0 hover:text-orange-500 lg:p-0`
                     }
                   >
                     Home
@@ -92,9 +92,9 @@ export default function Header() {
                   <NavLink
                     to="/About"
                     className={({ isActive }) =>
-                      isActive
-                        ? "text-white block py-2 pr-4 pl-3 rounded bg-primary-700 lg:bg-transparent lg:p-0"
-                        : "block py-2 pr-4 pl-3 text-gray-400 rounded hover:bg-gray-700 lg:hover:bg-transparent lg:hover:text-white lg:p-0"
+                      `block py-2 pr-4 pl-3 duration-200 ${
+                        isActive ? "text-orange-500" : "text-gray-300"
+                      } border-b border-gray-800 hover:bg-gray-800 lg:hover:bg-transparent lg:border-0 hover:text-orange-500 lg:p-0`
                     }
                   >
                     About
@@ -104,9 +104,9 @@ export default function Header() {
                   <NavLink
                     to="/Contact"
                     className={({ isActive }) =>
-                      isActive
-                        ? "text-white block py-2 pr-4 pl-3 rounded bg-primary-700 lg:bg-transparent lg:p-0"
-                        : "block py-2 pr-4 pl-3 text-gray-400 rounded hover:bg-gray-700 lg:hover:bg-transparent lg:hover:text-white lg:p-0"
+                      `block py-2 pr-4 pl-3 duration-200 ${
+                        isActive ? "text-orange-500" : "text-gray-300"
+                      } border-b border-gray-800 hover:bg-gray-800 lg:hover:bg-transparent lg:border-0 hover:text-orange-500 lg:p-0`
                     }
                   >
                     Contact
@@ -144,7 +144,11 @@ export default function Header() {
                   <li>
                     <button
                       onClick={HandleLogout}
-                      className="text-gray-400 block py-2 pr-4 pl-3 hover:bg-gray-700 lg:hover:bg-transparent lg:hover:text-white lg:p-0"
+                      className={({ isActive }) =>
+                        `block py-2 pr-4 pl-3 duration-200 ${
+                          isActive ? "text-orange-500" : "text-gray-300"
+                        } border-b border-gray-800 hover:bg-gray-800 lg:hover:bg-transparent lg:border-0 hover:text-orange-500 lg:p-0`
+                      }
                     >
                       Logout
                     </button>
@@ -155,9 +159,9 @@ export default function Header() {
                       <NavLink
                         to="/signin"
                         className={({ isActive }) =>
-                          isActive
-                            ? "text-white block py-2 pr-4 pl-3 rounded bg-primary-700 lg:bg-transparent lg:p-0"
-                            : "block py-2 pr-4 pl-3 text-gray-400 rounded hover:bg-gray-700 lg:hover:bg-transparent lg:hover:text-white lg:p-0"
+                          `block py-2 pr-4 pl-3 duration-200 ${
+                            isActive ? "text-orange-500" : "text-gray-300"
+                          } border-b border-gray-800 hover:bg-gray-800 lg:hover:bg-transparent lg:border-0 hover:text-orange-500 lg:p-0`
                         }
                       >
                         Login
@@ -167,9 +171,9 @@ export default function Header() {
                       <NavLink
                         to="/signup"
                         className={({ isActive }) =>
-                          isActive
-                            ? "text-white block py-2 pr-4 pl-3 rounded bg-primary-700 lg:bg-transparent lg:p-0"
-                            : "block py-2 pr-4 pl-3 text-gray-400 rounded hover:bg-gray-700 lg:hover:bg-transparent lg:hover:text-white lg:p-0"
+                          `block py-2 pr-4 pl-3 duration-200 ${
+                            isActive ? "text-orange-500" : "text-gray-300"
+                          } border-b border-gray-800 hover:bg-gray-800 lg:hover:bg-transparent lg:border-0 hover:text-orange-500 lg:p-0`
                         }
                       >
                         Register
