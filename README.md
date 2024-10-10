@@ -32,9 +32,3 @@ Make sure you have the following installed:
 - [MongoDB](https://www.mongodb.com/)
 - [Git](https://git-scm.com/)
 
-### Installation Steps
-
-1. Clone this repository:
-
-   ```bash
-   git clone https://github.com/yourusername/codespace.git
