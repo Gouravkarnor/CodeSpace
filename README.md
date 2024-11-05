@@ -2,6 +2,9 @@
 
 A coding practice platform that allows users to solve coding problems, test their code, and view their submission history. The platform also provides an admin interface for managing problems.
 
+## Live demo
+[Click Here](https://code-space-henna.vercel.app/)
+
 ## Tech Stack
 
 - **MongoDB** - For storing user data, problems, and submission history.
@@ -32,5 +35,4 @@ Make sure you have the following installed:
 - [MongoDB](https://www.mongodb.com/)
 - [Git](https://git-scm.com/)
 
-## Live demo
-[Click Here](https://code-space-henna.vercel.app/)
+
